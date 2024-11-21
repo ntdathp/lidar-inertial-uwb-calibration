@@ -1,0 +1,25 @@
+<launch>
+<param name="config_file" type="string" value="$(find uwb_system)/config/uwb_system_fl.yaml" />
+
+  <!-- uwb system -->
+  <node
+    pkg="uwb_system"
+    type="uwb_anchor_estimator"
+    name="uwb_anchor_estimator" 
+    output="screen"
+    args="--logtostderr --v=3" />
+
+  <!-- dataset -->
+  <node 
+    pkg="rosbag" 
+    type="play" 
+    name="player" 
+    args="--clock /home/xr/Documents/research/slam/uwb-calibration/data/merged_run_odometry.bag --rate 3.0"/> <!-- run-2_fast-lio_odometry  merged_run_odometry -->
+
+  <!-- visualization
+
+  <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find uwb_system)/config/uwb_system.rviz" />
+  <node name="pcd_to_pointcloud" pkg="pcl_ros" type="pcd_to_pointcloud" output="screen" args="/home/xr/Documents/research/slam/uwb-calibration/data/map.pcd 0.1 _frame_id:=camera_init" />-->
+<param name="/use_sim_time" value="true" />
+</launch> 
+
