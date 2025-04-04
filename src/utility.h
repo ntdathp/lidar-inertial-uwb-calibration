@@ -8,6 +8,7 @@
 #include <vector>
 #include <ceres/ceres.h>
 #include <Eigen/Dense>
+#include <filesystem>
 
 namespace fs = std::filesystem;
 

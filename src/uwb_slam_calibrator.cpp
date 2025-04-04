@@ -5,6 +5,7 @@
 #include <iostream>
 #include <filesystem>
 #include<tuple> 
+#include <random>
 #include <uwb_system/json.hpp>
 
 #include "ros/ros.h"
@@ -309,6 +310,7 @@ void add_tdoa_and_tag_extrinsics_factors(ceres::Problem & problem, std::string p
 
   ROS_INFO("added %d tag position factors", count_valid_meas);
 }
+
 void add_anchor_prior_factors(ceres::Problem & problem, std::string path) {
     // check mode
     double scale_res_prior_effective = scale_res_prior;
@@ -487,6 +489,10 @@ int main(int argc, char **argv) {
     else {
         ROS_INFO("[mode] coarse opt: setting initial anchor locations to pseudo-random values");
         
+        // addition
+        double mean = 0.0;
+        double std_dev = 2.0;
+
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(mean, std_dev);
         for(int a_i = 0; a_i < NUM_OF_ANCHORS; a_i++) {

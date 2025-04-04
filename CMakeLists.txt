@@ -4,7 +4,7 @@ project(uwb_system)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
-
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++14")
 #-DEIGEN_USE_MKL_ALL")
@@ -155,10 +155,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/uwb_system_node.cpp)
 
-add_executable(uwb_anchor_estimator
-        src/uwb_anchor_estimator.cpp
-        src/parameters.cpp
-)
+
 
 add_executable(uwb_slam_calibrator
         src/uwb_slam_calibrator.cpp
@@ -179,15 +176,10 @@ add_executable(uwb_slam_calibrator
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(uwb_anchor_estimator
-        yaml-cpp
-        ${catkin_LIBRARIES}
-        ${CERES_LIBRARIES}
-        ${rosbag_LIBRARIES}
-)
 
 target_link_libraries(uwb_slam_calibrator
         yaml-cpp
+        gflags
         ${catkin_LIBRARIES}
         ${CERES_LIBRARIES}
         ${rosbag_LIBRARIES}
